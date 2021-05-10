@@ -15,9 +15,10 @@ D:\Projects\CamundaSample\Camunda_Tasks\bin\Debug\Camunda_Tasks.pdb
 D:\Projects\CamundaSample\Camunda_Tasks\bin\Debug\CamundaClient.dll
 D:\Projects\CamundaSample\Camunda_Tasks\bin\Debug\CamundaClient.pdb
 D:\Projects\CamundaSample\Camunda_Tasks\bin\Debug\CamundaClient.dll.config
-D:\Projects\CamundaSample\Camunda_Tasks\bin\Debug\Newtonsoft.Json.xml
 D:\Projects\CamundaSample\Camunda_Tasks\obj\Debug\Camunda_Tasks.csprojAssemblyReference.cache
 D:\Projects\CamundaSample\Camunda_Tasks\obj\Debug\Camunda_Tasks.csproj.CoreCompileInputs.cache
 D:\Projects\CamundaSample\Camunda_Tasks\obj\Debug\Camunda_Tasks.csproj.CopyComplete
 D:\Projects\CamundaSample\Camunda_Tasks\obj\Debug\Camunda_Tasks.exe
 D:\Projects\CamundaSample\Camunda_Tasks\obj\Debug\Camunda_Tasks.pdb
+D:\Projects\CamundaSample\Camunda_Tasks\bin\Debug\RestSharp.dll
+D:\Projects\CamundaSample\Camunda_Tasks\bin\Debug\RestSharp.xml

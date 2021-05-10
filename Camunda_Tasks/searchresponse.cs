@@ -12,9 +12,9 @@ namespace Camunda_Tasks
 
         public void Execute(ExternalTask externalTask, ref Dictionary<string, object> resultVariables)
         {
-            string jsonAPIResponse = Convert.ToString(externalTask.Variables["jsonresult"].Value);            
+            string jsonAPIResponse = Convert.ToString(externalTask.Variables["jsonresult"].Value);
 
-            resultVariables.Add("jsonresult", "Result consolidated");            
+            resultVariables.Add("jsonresult", jsonAPIResponse);// "Result consolidated");            
         }
 
     }

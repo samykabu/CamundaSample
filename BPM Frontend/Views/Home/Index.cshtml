@@ -1,0 +1,29 @@
+﻿@model string
+<div class="jumbotron">
+    <h1>Hotel Reservation Search</h1>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Start Date</h2>
+            <input id="startDate" name="startDate" type="date" />
+        </div>
+        <div class="col-md-4">
+            <h2>End Date</h2>
+            <input id="endDate" name="endDate" type="date" />
+        </div>
+        
+    </div>
+    <div class="row" style="margin:10px;">
+        <div class="col-md-4">
+            <button class="btn btn-lg btn-primary" id="SubmitBtn" type="submit">Search</button>
+        </div>
+    </div>
+</form>
+<h5>Result</h5>
+<h6>
+    <pre>
+        @Model
+    </pre>
+</h6>

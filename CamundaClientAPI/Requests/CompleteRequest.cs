@@ -12,5 +12,6 @@ namespace CamundaClient.Requests
         public string BusinessKey { get; set; }
         public Dictionary<string, Variable> Variables { get; set; }
         public string WorkerId { get; set; }
+        public bool WithVariablesInReturn { get; set; } = true;
     }
 }

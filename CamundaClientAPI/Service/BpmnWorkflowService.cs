@@ -7,6 +7,7 @@ using CamundaClient.Requests;
 using System.Text;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
+using System.Threading;
 
 namespace CamundaClient.Service
 {
@@ -52,11 +53,13 @@ namespace CamundaClient.Service
             request.Variables = CamundaClientHelper.ConvertVariables(variables);
             request.BusinessKey = businessKey;
 
-            var requestContent = new StringContent(JsonConvert.SerializeObject(request, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }), Encoding.UTF8, CamundaClientHelper.CONTENT_TYPE_JSON);
+            var requestSTR = JsonConvert.SerializeObject(request, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+            var requestContent = new StringContent(requestSTR, Encoding.UTF8, CamundaClientHelper.CONTENT_TYPE_JSON);
             var response = http.PostAsync("process-definition/key/" + processDefinitionKey + "/start", requestContent).Result;
             if (response.IsSuccessStatusCode)
             {
-                var processInstance = JsonConvert.DeserializeObject<ProcessInstance>(response.Content.ReadAsStringAsync().Result);
+                var resp = response.Content.ReadAsStringAsync().Result;
+                var processInstance = JsonConvert.DeserializeObject<ProcessInstance>(resp);
                 return processInstance;
             }
             else
@@ -67,6 +70,29 @@ namespace CamundaClient.Service
 
         }
 
+        public List<ProcessInstanceVariable> waitForProcessCompletetion(string processID)
+        {
+            var http = helper.HttpClient();
+            var response = http.GetAsync("history/process-instance/" + processID).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStr = response.Content.ReadAsStringAsync().Result;
+                var processInstance = JsonConvert.DeserializeObject<ProcessInstanceStatus>(responseStr);
+                while (processInstance == null || string.IsNullOrEmpty(processInstance.Id) || string.IsNullOrEmpty(processInstance.state) || processInstance.state!= "COMPLETED")
+                {
+                    Thread.Sleep(500);
+                    response = http.GetAsync("history/process-instance/" + processID).Result;
+                    responseStr = response.Content.ReadAsStringAsync().Result;
+                    processInstance = JsonConvert.DeserializeObject<ProcessInstanceStatus>(responseStr);
+                }
+                response = http.GetAsync("history/variable-instance?processInstanceId=" + processID).Result;//variable-instance?processInstanceId=
+                responseStr = response.Content.ReadAsStringAsync().Result;
+               var processInstanceVariables = JsonConvert.DeserializeObject<List<ProcessInstanceVariable>>(responseStr);
+                return processInstanceVariables;
+            }
+            return null;
+
+        }
         public Dictionary<string, object> LoadVariables(string taskId)
         {
             var http = helper.HttpClient();

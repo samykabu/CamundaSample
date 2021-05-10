@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.7.0">
+  <bpmn:process id="hotelsearchProcess" name="Hotel Search" isExecutable="true">
+    <bpmn:startEvent id="StartEvent" name="Calculation&#10;requested">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="checkindate" label="Check In Date" type="date" />
+          <camunda:formField id="checkoutdate" label="CheckOut Date" type="date" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_1ap1fum</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1ap1fum" sourceRef="StartEvent" targetRef="hotelsearch" />
+    <bpmn:serviceTask id="hotelsearch" name="Search Hotels" camunda:type="external" camunda:topic="hotelsearch">
+      <bpmn:incoming>SequenceFlow_1ap1fum</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1rm1qjm</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1rm1qjm" sourceRef="hotelsearch" targetRef="hotelfilter" />
+    <bpmn:endEvent id="EndEvent" name="Search Hotels&#10;finished">
+      <bpmn:incoming>Flow_1kbn0um</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1qfzcgn" sourceRef="hotelfilter" targetRef="searchresponse" />
+    <bpmn:serviceTask id="hotelfilter" name="Apply Filters" camunda:type="external" camunda:topic="hotelfilter">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="addedValue">150</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1rm1qjm</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qfzcgn</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1kbn0um" sourceRef="searchresponse" targetRef="EndEvent" />
+    <bpmn:serviceTask id="searchresponse" name="Prepear Response" camunda:type="external" camunda:topic="searchresponse">
+      <bpmn:incoming>Flow_1qfzcgn</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kbn0um</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="hotelsearchProcess">
+      <bpmndi:BPMNEdge id="SequenceFlow_1rm1qjm_di" bpmnElement="SequenceFlow_1rm1qjm">
+        <di:waypoint x="380" y="145" />
+        <di:waypoint x="480" y="145" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="475" y="135" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ap1fum_di" bpmnElement="SequenceFlow_1ap1fum">
+        <di:waypoint x="191" y="145" />
+        <di:waypoint x="280" y="145" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="170.5" y="135" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qfzcgn_di" bpmnElement="Flow_1qfzcgn">
+        <di:waypoint x="580" y="145" />
+        <di:waypoint x="650" y="145" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kbn0um_di" bpmnElement="Flow_1kbn0um">
+        <di:waypoint x="750" y="145" />
+        <di:waypoint x="842" y="145" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent">
+        <dc:Bounds x="155" y="127" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="128" y="163" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1000x9l_di" bpmnElement="EndEvent">
+        <dc:Bounds x="842" y="127" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="826" y="163" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1k67bpu_di" bpmnElement="searchresponse">
+        <dc:Bounds x="650" y="105" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0olvrcx_di" bpmnElement="hotelfilter">
+        <dc:Bounds x="480" y="105" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1jseq4k_di" bpmnElement="hotelsearch">
+        <dc:Bounds x="280" y="105" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

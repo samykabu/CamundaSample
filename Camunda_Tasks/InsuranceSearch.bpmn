@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.7.0">
-  <bpmn:process id="hotelsearchProcess" name="Hotel Search" isExecutable="true">
+  <bpmn:process id="hotelsearchProcess" name="Insurance Search" isExecutable="true">
     <bpmn:startEvent id="StartEvent" name="Calculation&#10;requested">
       <bpmn:extensionElements>
         <camunda:formData>
@@ -11,12 +11,12 @@
       <bpmn:outgoing>SequenceFlow_1ap1fum</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1ap1fum" sourceRef="StartEvent" targetRef="hotelsearch" />
-    <bpmn:serviceTask id="hotelsearch" name="Search Hotels" camunda:type="external" camunda:topic="hotelsearch">
+    <bpmn:serviceTask id="hotelsearch" name="Search Insurance" camunda:type="external" camunda:topic="hotelsearch">
       <bpmn:incoming>SequenceFlow_1ap1fum</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1rm1qjm</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1rm1qjm" sourceRef="hotelsearch" targetRef="hotelfilter" />
-    <bpmn:endEvent id="EndEvent" name="Search Hotels&#10;finished">
+    <bpmn:endEvent id="EndEvent" name="Search Insurance&#10;finished">
       <bpmn:incoming>Flow_1kbn0um</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1qfzcgn" sourceRef="hotelfilter" targetRef="searchresponse" />

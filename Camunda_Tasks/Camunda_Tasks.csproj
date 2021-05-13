@@ -36,8 +36,14 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\CamundaClientAPI\packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,15 +52,88 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HotelFilterWorker.cs" />
-    <Compile Include="HotelSearchWorker.cs" />
+    <Compile Include="InsuranceFilterWorker.cs" />
+    <Compile Include="InsuranceSearchWorker.cs" />
+    <Compile Include="Insurance\Enums\AvilabilityStatus.cs" />
+    <Compile Include="Insurance\Enums\BookingStatus.cs" />
+    <Compile Include="Insurance\Enums\ChargeType.cs" />
+    <Compile Include="Insurance\Enums\StatusInfo.cs" />
+    <Compile Include="Insurance\ImageMeta.cs" />
+    <Compile Include="Insurance\jsonDateFormatConverter.cs" />
+    <Compile Include="Insurance\ProviderRequest\Base\Context.cs" />
+    <Compile Include="Insurance\ProviderRequest\Base\parameters.cs" />
+    <Compile Include="Insurance\ProviderRequest\Base\ProviderBaseRequest.cs" />
+    <Compile Include="Insurance\ProviderRequest\Base\ProviderInfo.cs" />
+    <Compile Include="Insurance\ProviderRequest\Base\ProviderLookupBaseRequest.cs" />
+    <Compile Include="Insurance\ProviderRequest\Search\ProviderCheckAvailabilityRequest.cs" />
+    <Compile Include="Insurance\ProviderRequest\Search\ProviderConfirmCancelReservationRequest.cs" />
+    <Compile Include="Insurance\ProviderRequest\Search\ProviderReservationRequest.cs" />
+    <Compile Include="Insurance\ProviderRequest\Search\ProviderSearchBaseRequest.cs" />
+    <Compile Include="Insurance\ProviderResponse\Lookups\Categories.cs" />
+    <Compile Include="Insurance\ProviderResponse\Lookups\Category.cs" />
+    <Compile Include="Insurance\ProviderResponse\Lookups\Companies.cs" />
+    <Compile Include="Insurance\ProviderResponse\Lookups\Company.cs" />
+    <Compile Include="Insurance\ProviderResponse\Lookups\CompanyImages.cs" />
+    <Compile Include="Insurance\ProviderResponse\Lookups\InsuraceType.cs" />
+    <Compile Include="Insurance\ProviderResponse\Lookups\InsuraceTypes.cs" />
+    <Compile Include="Insurance\ProviderResponse\Lookups\Link.cs" />
+    <Compile Include="Insurance\ProviderResponse\ProviderBaseResponse.cs" />
+    <Compile Include="Insurance\ProviderResponse\ProviderError.cs" />
+    <Compile Include="Insurance\ProviderResponse\ProviderSearchResponse.cs" />
+    <Compile Include="Insurance\SubscriberRequest\BaseRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\CheckReservationStatusInnerRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\CheckReservationStatusRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\ContextBaseRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\LookupsRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberAdditionalServicesRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberBaseRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberCategoriesRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberCompaniesRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberConfirmCancelReservationRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberConfirmCancelReservationRequest_V2.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberConfirmCancelReservationResponse.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberLookupRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberServiceCheckAvailabilityRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberServiceReservationRequest.cs" />
+    <Compile Include="Insurance\SubscriberRequest\SubscriberServiceSearchRequest.cs" />
+    <Compile Include="Insurance\SubscriberResponse\BaseResponse.cs" />
+    <Compile Include="Insurance\SubscriberResponse\CertifiedOTAList.cs" />
+    <Compile Include="Insurance\SubscriberResponse\OTADetailsResponse.cs" />
+    <Compile Include="Insurance\SubscriberResponse\ResponseStatus.cs" />
+    <Compile Include="Insurance\SubscriberResponse\SubscriberBaseResponse.cs" />
+    <Compile Include="Insurance\SubscriberResponse\SubscriberServiceCheckAvailabilityResponse.cs" />
+    <Compile Include="Insurance\SubscriberResponse\SubscriberServiceReservationResponse.cs" />
+    <Compile Include="Insurance\SubscriberResponse\SubscriberServiceSearchResponse.cs" />
+    <Compile Include="Insurance\SubscribersShared\BusinessError.cs" />
+    <Compile Include="Insurance\SubscribersShared\CancellationPolicyInner.cs" />
+    <Compile Include="Insurance\SubscribersShared\CancelReservation.cs" />
+    <Compile Include="Insurance\SubscribersShared\CancelReservation_V2.cs" />
+    <Compile Include="Insurance\SubscribersShared\CheckAvailabilityBaseRequest.cs" />
+    <Compile Include="Insurance\SubscribersShared\CheckAvailabilityBaseResponse.cs" />
+    <Compile Include="Insurance\SubscribersShared\CheckAvailabilityCompanyPolicy.cs" />
+    <Compile Include="Insurance\SubscribersShared\Context.cs" />
+    <Compile Include="Insurance\SubscribersShared\DateCriteria.cs" />
+    <Compile Include="Insurance\SubscribersShared\DisplayRateInfo.cs" />
+    <Compile Include="Insurance\SubscribersShared\InsurancePolicy.cs" />
+    <Compile Include="Insurance\SubscribersShared\PoliciesInner.cs" />
+    <Compile Include="Insurance\SubscribersShared\PolicyArticle.cs" />
+    <Compile Include="Insurance\SubscribersShared\PolicyOfferingDates.cs" />
+    <Compile Include="Insurance\SubscribersShared\ProviderCancelReservation.cs" />
+    <Compile Include="Insurance\SubscribersShared\ProviderInfo.cs" />
+    <Compile Include="Insurance\SubscribersShared\ReservationBaseRequest.cs" />
+    <Compile Include="Insurance\SubscribersShared\ReservationCompanyPolicy.cs" />
+    <Compile Include="Insurance\SubscribersShared\ResponseContext.cs" />
+    <Compile Include="Insurance\SubscribersShared\ResponseInfo.cs" />
+    <Compile Include="Insurance\SubscribersShared\SearchBaseRequest.cs" />
+    <Compile Include="Insurance\SubscribersShared\SearchCompanyPolicy.cs" />
+    <Compile Include="Insurance\SubscribersShared\ViewHotelReservationResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="searchresponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EmbeddedResource Include="HotelSearch.bpmn" />
+    <EmbeddedResource Include="InsuranceSearch.bpmn" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
